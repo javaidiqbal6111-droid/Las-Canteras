@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import MenuSection from './components/MenuSection';
 import ReservationSection from './components/ReservationSection';
-import AIAssistant from './components/AIAssistant';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import { MenuItem, CartItem, Order } from './types';
@@ -175,7 +174,6 @@ const App: React.FC = () => {
         onCancelOrder={handleCancelOrder}
       />
       
-      <AIAssistant />
       <Footer />
     </div>
   );

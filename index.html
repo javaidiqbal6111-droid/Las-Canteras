@@ -54,10 +54,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-border {
-            border-image: linear-gradient(to right, var(--canteras-gold), var(--canteras-gold-light)) 1;
-        }
-
         @keyframes slow-zoom {
             from { transform: scale(1); }
             to { transform: scale(1.15); }
@@ -72,6 +68,15 @@
         }
         .animate-fade-in-up {
             animation: fade-in-up 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+        }
+
+        @keyframes cart-bump {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.3); }
+          100% { transform: scale(1); }
+        }
+        .animate-cart-bump {
+          animation: cart-bump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         /* Custom scrollbar */
@@ -92,7 +97,7 @@
             left: 50%;
             width: 300%;
             height: 300%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             transform: translate(-50%, -50%) rotate(45deg) translateY(100%);
             transition: all 0.6s ease;
         }

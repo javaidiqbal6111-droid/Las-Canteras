@@ -8,14 +8,14 @@ const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 z-0 scale-105 animate-slow-zoom opacity-70"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=1920&q=80')`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(10,10,10,0.8)), url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=1920&q=80')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       ></div>
       
-      {/* Floating Content */}
-      <div className="relative z-10 text-center text-white px-6 pt-64 max-w-5xl mx-auto">
+      {/* Floating Content - Lowered with pt-80 */}
+      <div className="relative z-10 text-center text-white px-6 pt-80 max-w-5xl mx-auto">
         <div className="flex items-center justify-center gap-4 mb-8 animate-fade-in-up">
           <div className="h-px w-12 bg-[#C5A059]"></div>
           <h2 className="text-[#C5A059] text-xs md:text-sm uppercase tracking-[0.8em] font-black">Establecido 1998</h2>
@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col sm:flex-row gap-8 justify-center items-center animate-fade-in-up">
           <a 
             href="#menu" 
-            className="btn-premium bg-[#8B0000] text-white px-14 py-5 rounded-none font-black text-xs uppercase tracking-[0.4em] shadow-2xl transition-all hover:-translate-y-1"
+            className="btn-premium bg-[#8B0000] text-white px-14 py-5 rounded-none font-black text-xs uppercase tracking-[0.4em] shadow-2xl transition-all hover:-translate-y-1 hover:shadow-[#8B0000]/20"
           >
             Explore Menu
           </a>
@@ -47,10 +47,10 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Elegant Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+      {/* Elegant Scroll Indicator - Lowered to bottom-8 */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
         <span className="text-[9px] uppercase tracking-[0.5em] font-bold text-white">Scroll to Discover</span>
-        <div className="w-[1px] h-16 bg-gradient-to-b from-[#C5A059] to-transparent animate-pulse"></div>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-[#C5A059] to-transparent animate-pulse"></div>
       </div>
     </div>
   );

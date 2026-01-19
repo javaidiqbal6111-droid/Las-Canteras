@@ -86,9 +86,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, 
                 <div className="absolute inset-0 bg-[#1A1A1A]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                   <button 
                     onClick={() => handleAdd(item)}
-                    className={`bg-white text-[#1A1A1A] px-10 py-4 font-black text-[10px] uppercase tracking-[0.3em] transition-all transform translate-y-4 group-hover:translate-y-0 ${recentlyAdded[item.id] ? 'bg-[#2E8B57] text-white' : 'hover:bg-[#C5A059] hover:text-white'}`}
+                    className={`bg-white text-[#1A1A1A] px-10 py-4 font-black text-[10px] uppercase tracking-[0.3em] transition-all transform translate-y-4 group-hover:translate-y-0 active:scale-95 ${recentlyAdded[item.id] ? 'bg-green-600 text-white' : 'hover:bg-[#C5A059] hover:text-white'}`}
                   >
-                    {recentlyAdded[item.id] ? '✓ Added' : 'Add to Order'}
+                    {recentlyAdded[item.id] ? '✓ Added to Cart' : 'Add to Order'}
                   </button>
                 </div>
                 
@@ -101,7 +101,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, 
 
               <div className="text-center">
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <h3 className="text-2xl font-black text-[#1A1A1A] heading-font italic tracking-tight">{item.name}</h3>
+                  <h3 className="text-2xl font-black text-[#1A1A1A] heading-font italic tracking-tight group-hover:text-[#8B0000] transition-colors">{item.name}</h3>
                   <div className="flex gap-1 shrink-0">
                     {[...Array(item.spicyLevel)].map((_, i) => (
                       <span key={i} className="text-sm">🌶️</span>

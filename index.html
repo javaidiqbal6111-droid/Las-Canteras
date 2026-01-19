@@ -4,86 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Las Canteras Mexican Grill</title>
+    <title>Las Canteras Mexican Grill | Authentic Flavors</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --canteras-red: #B22222;
-            --canteras-gold: #DAA520;
-            --parchment: #FFFBF0;
+            --canteras-red: #8B0000;
+            --canteras-gold: #C5A059;
+            --canteras-gold-light: #E8D3A3;
+            --parchment: #FCF9F2;
+            --deep-obsidian: #1A1A1A;
         }
+        
         body {
             font-family: 'Lato', sans-serif;
             background-color: var(--parchment);
             scroll-behavior: smooth;
-            color: #1a1a1a;
+            color: var(--deep-obsidian);
+            overflow-x: hidden;
         }
+        
         h1, h2, h3, h4, .heading-font {
             font-family: 'Playfair Display', serif;
         }
-        
-        /* Fix for cutting text after fixed navbar */
+
+        /* Premium Grain Overlay */
+        .grain-overlay::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
         section {
             scroll-margin-top: 100px;
         }
 
-        .bg-canteras-red { background-color: var(--canteras-red); }
-        .text-canteras-red { color: var(--canteras-red); }
-        .bg-canteras-green { background-color: #2E8B57; }
-        .text-canteras-green { color: #2E8B57; }
-        .bg-canteras-gold { background-color: var(--canteras-gold); }
-        .text-canteras-gold { color: var(--canteras-gold); }
-        .bg-parchment { background-color: var(--parchment); }
-        
-        @keyframes slide-in-right {
-          from { transform: translateX(100%); }
-          to { transform: translateX(0); }
+        .text-gold-gradient {
+            background: linear-gradient(to right, var(--canteras-gold), var(--canteras-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .animate-slide-in-right {
-          animation: slide-in-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+        .gold-border {
+            border-image: linear-gradient(to right, var(--canteras-gold), var(--canteras-gold-light)) 1;
+        }
+
+        @keyframes slow-zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+        .animate-slow-zoom {
+            animation: slow-zoom 20s linear infinite alternate;
         }
 
         @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-        }
-
-        @keyframes cart-bump {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.4); }
-          100% { transform: scale(1); }
-        }
-        .animate-cart-bump {
-          animation: cart-bump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        .shimmer-button {
-          background: linear-gradient(90deg, var(--canteras-red) 0%, #d42a2a 25%, var(--canteras-red) 50%);
-          background-size: 200% 100%;
-          animation: shimmer 3s infinite linear;
+            animation: fade-in-up 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
         }
 
         /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--parchment); }
-        ::-webkit-scrollbar-thumb { background: var(--canteras-gold); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--canteras-gold); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--canteras-red); }
 
-        /* Texture Overlay */
-        .texture-overlay {
-            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            pointer-events: none;
+        .btn-premium {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .btn-premium::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%) rotate(45deg) translateY(100%);
+            transition: all 0.6s ease;
+        }
+        .btn-premium:hover::after {
+            transform: translate(-50%, -50%) rotate(45deg) translateY(0);
         }
     </style>
 <script type="importmap">
@@ -97,7 +111,7 @@
 }
 </script>
 </head>
-<body class="texture-overlay">
+<body class="grain-overlay">
     <div id="root"></div>
 </body>
 </html>

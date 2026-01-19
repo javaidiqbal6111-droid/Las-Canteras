@@ -15,7 +15,6 @@ const App: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeOrder, setActiveOrder] = useState<Order | null>(null);
 
-  // Persistence logic
   useEffect(() => {
     const savedOrder = localStorage.getItem('last_order');
     if (savedOrder) {
@@ -36,10 +35,9 @@ const App: React.FC = () => {
     }
   }, [activeOrder]);
 
-  // Cart Operations
   const addToOrder = (item: MenuItem) => {
     if (activeOrder) {
-      alert("You have an active order being prepared. Please track it in your order summary.");
+      alert("Active order in progress. Track it in your summary.");
       setIsCartOpen(true);
       return;
     }
@@ -66,7 +64,6 @@ const App: React.FC = () => {
     setCartItems(prev => prev.filter(i => i.id !== id));
   };
 
-  // Order Flow
   const handlePlaceOrder = (order: Order) => {
     setActiveOrder(order);
     setCartItems([]);
@@ -74,13 +71,12 @@ const App: React.FC = () => {
 
   const handleCancelOrder = (id: string) => {
     setActiveOrder(null);
-    alert(`Refund Complete. Your payment for order ${id} has been returned to your card.`);
   };
 
   const cartTotalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-parchment selection:bg-canteras-gold selection:text-white antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-parchment selection:bg-[#C5A059] selection:text-white antialiased">
       <Navbar 
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery} 
@@ -88,29 +84,57 @@ const App: React.FC = () => {
         onOpenCart={() => setIsCartOpen(true)}
       />
       
-      {/* We use relative positioning and no top padding on main to allow Hero to sit perfectly under Navbar */}
       <main>
         <Hero />
         
-        {/* Quality Banner - Elevated Design */}
-        <div className="bg-canteras-red py-24 overflow-hidden relative">
-          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/az-subtle.png')]"></div>
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 text-white text-center relative z-10">
-            <div className="flex flex-col items-center group">
-              <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-4xl mb-6 group-hover:bg-canteras-gold/30 transition-all duration-500 shadow-2xl">🌮</div>
-              <h4 className="font-bold text-2xl heading-font italic mb-4">Oaxacan Heritage</h4>
-              <p className="text-sm opacity-70 max-w-[240px] leading-relaxed font-light italic">Nixtamalized corn pressed by hand, following ancient family traditions.</p>
+        {/* New Feature: Our Story / Philosophy Section */}
+        <section className="py-40 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div className="relative">
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#FCF9F2] -z-10 rounded-full"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" 
+                className="rounded-[3rem] shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-1000"
+                alt="Culinary Craft"
+              />
+              <div className="absolute -bottom-12 -right-12 bg-[#8B0000] p-12 text-white hidden md:block rounded-3xl shadow-2xl">
+                <span className="text-4xl font-black heading-font italic">25+</span>
+                <p className="text-[10px] uppercase tracking-widest mt-2">Years of Tradition</p>
+              </div>
             </div>
-            <div className="flex flex-col items-center group">
-              <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-4xl mb-6 group-hover:bg-canteras-gold/30 transition-all duration-500 shadow-2xl">🍹</div>
-              <h4 className="font-bold text-2xl heading-font italic mb-4">Agave Curation</h4>
-              <p className="text-sm opacity-70 max-w-[240px] leading-relaxed font-light italic">Over 40 rare tequilas and mezcals aged specifically in white oak barrels.</p>
+            
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <span className="text-[#C5A059] font-black uppercase tracking-[0.5em] text-xs">Our Philosophy</span>
+                <h2 className="text-5xl md:text-7xl font-black text-[#1A1A1A] heading-font italic">Born from the Hearth</h2>
+              </div>
+              <p className="text-xl text-gray-500 leading-relaxed font-light italic">
+                "Las Canteras is more than a kitchen; it is a celebration of the 'fogon'—the ancestral hearth where smoke and memory meet. Every tortilla is pressed by hands that remember the rhythm of Oaxaca."
+              </p>
+              <div className="pt-8">
+                 <a href="#menu" className="inline-flex items-center gap-4 text-[#8B0000] font-black uppercase tracking-[0.3em] text-sm group">
+                   See the Craft
+                   <div className="w-12 h-px bg-[#8B0000] transition-all group-hover:w-20"></div>
+                 </a>
+              </div>
             </div>
-            <div className="flex flex-col items-center group">
-              <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-4xl mb-6 group-hover:bg-canteras-gold/30 transition-all duration-500 shadow-2xl">🔥</div>
-              <h4 className="font-bold text-2xl heading-font italic mb-4">Mesquite Grilling</h4>
-              <p className="text-sm opacity-70 max-w-[240px] leading-relaxed font-light italic">Traditional wood-fired ovens that impart the ultimate smoky depth.</p>
-            </div>
+          </div>
+        </section>
+
+        {/* Quality Banner - Elevated */}
+        <div className="bg-[#1A1A1A] py-32 overflow-hidden relative border-y border-white/5">
+          <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-24 text-white text-center">
+            {[
+              { icon: '🌮', title: 'Oaxacan Heritage', desc: 'Nixtamalized corn pressed by hand following ancient secrets.' },
+              { icon: '🍹', title: 'Agave Curation', desc: 'Over 40 rare mezcals aged specifically in white oak.' },
+              { icon: '🔥', title: 'Mesquite Fire', desc: 'Wood-fired ovens that impart deep, primitive smoke.' }
+            ].map((feature, idx) => (
+              <div key={idx} className="space-y-6 group">
+                <div className="text-5xl mb-8 group-hover:scale-125 transition-transform duration-500">{feature.icon}</div>
+                <h4 className="text-2xl heading-font italic text-[#C5A059]">{feature.title}</h4>
+                <p className="text-sm text-white/40 leading-relaxed font-light">{feature.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -120,19 +144,19 @@ const App: React.FC = () => {
           onAddToOrder={addToOrder} 
         />
         
-        {/* Social Proof - Increased height for drama */}
-        <section className="py-48 bg-white relative overflow-hidden flex items-center justify-center">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <div className="flex justify-center gap-3 mb-10 opacity-30">
-              {[...Array(5)].map((_, i) => <span key={i} className="text-canteras-gold text-3xl">★</span>)}
-            </div>
-            <p className="text-4xl md:text-6xl font-black italic text-gray-900 mb-16 leading-[1.2] heading-font">
-              "An unparalleled journey through the heart of Mexico. The attention to detail is breathtaking."
-            </p>
+        {/* Social Proof Dramatic Redesign */}
+        <section className="py-64 bg-[#FCF9F2] relative overflow-hidden flex items-center justify-center">
+          <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+            <div className="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/az-subtle.png')]"></div>
+          </div>
+          <div className="max-w-5xl mx-auto px-8 text-center relative z-10">
+            <h3 className="text-4xl md:text-7xl font-black italic text-[#1A1A1A] mb-20 leading-tight heading-font">
+              "An unparalleled journey through Mexico's heart. Breathtaking detail."
+            </h3>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-parchment flex items-center justify-center text-2xl border-2 border-canteras-gold mb-5 text-canteras-gold shadow-lg">✨</div>
-              <p className="font-black text-gray-900 tracking-[0.4em] uppercase text-xs">Esteban De La Riva</p>
-              <p className="text-[10px] text-canteras-red font-black mt-2 uppercase tracking-[0.3em] opacity-60">Master Sommelier & Critic</p>
+              <div className="w-px h-12 bg-[#C5A059] mb-8"></div>
+              <p className="font-black text-[#1A1A1A] tracking-[0.6em] uppercase text-[10px]">Esteban De La Riva</p>
+              <p className="text-[9px] text-[#8B0000] font-black mt-3 uppercase tracking-[0.4em]">Master Sommelier</p>
             </div>
           </div>
         </section>

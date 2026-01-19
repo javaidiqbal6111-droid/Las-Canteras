@@ -11,10 +11,31 @@ interface MenuSectionProps {
 
 const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, onAddToOrder }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [recentlyAdded, setRecentlyAdded] = useState<Record<string, boolean>>({});
+  const [isReserving, setIsReserving] = useState(false);
+
   const categories = ['All', ...new Set(MENU_ITEMS.map(item => item.category))];
 
   // Logic for the Daily Special feature
   const dailySpecial = useMemo(() => MENU_ITEMS.find(i => i.id === '4'), []);
+
+  const handleAdd = (item: MenuItem) => {
+    onAddToOrder(item);
+    setRecentlyAdded(prev => ({ ...prev, [item.id]: true }));
+    setTimeout(() => {
+      setRecentlyAdded(prev => ({ ...prev, [item.id]: false }));
+    }, 1500);
+  };
+
+  const handleSpecialReserve = (item: MenuItem) => {
+    setIsReserving(true);
+    setTimeout(() => {
+      onAddToOrder(item);
+      setIsReserving(false);
+      setRecentlyAdded(prev => ({ ...prev, [item.id]: true }));
+      setTimeout(() => setRecentlyAdded(prev => ({ ...prev, [item.id]: false })), 1500);
+    }, 800);
+  };
 
   const filteredItems = useMemo(() => {
     return MENU_ITEMS.filter(item => {
@@ -62,10 +83,14 @@ const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, 
                 <div className="flex items-center justify-between">
                    <span className="text-3xl font-black text-gray-900">${dailySpecial.price.toFixed(2)}</span>
                    <button 
-                    onClick={() => onAddToOrder(dailySpecial)}
-                    className="bg-canteras-red hover:bg-red-800 text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-2xl active:scale-95"
+                    disabled={isReserving}
+                    onClick={() => handleSpecialReserve(dailySpecial)}
+                    className={`shimmer-button text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-2xl active:scale-95 flex items-center gap-3 ${isReserving ? 'opacity-70 cursor-not-allowed' : ''}`}
                    >
-                     Reserve for Dinner
+                     {isReserving ? (
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                     ) : null}
+                     {recentlyAdded[dailySpecial.id] ? '✓ Reserved!' : 'Reserve for Dinner'}
                    </button>
                 </div>
               </div>
@@ -109,7 +134,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, 
                       Planta
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
                 <div className="p-10 flex-1 flex flex-col">
                   <div className="flex justify-between items-start mb-4">
@@ -124,10 +148,14 @@ const MenuSection: React.FC<MenuSectionProps> = ({ searchQuery, setSearchQuery, 
                     {item.description}
                   </p>
                   <button 
-                    onClick={() => onAddToOrder(item)}
-                    className="w-full bg-parchment border-2 border-canteras-gold/20 text-canteras-gold hover:bg-canteras-gold hover:text-white py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] transition-all shadow-sm hover:shadow-xl active:scale-[0.98]"
+                    onClick={() => handleAdd(item)}
+                    className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] transition-all shadow-sm active:scale-[0.98] border-2 ${
+                      recentlyAdded[item.id] 
+                      ? 'bg-canteras-green border-canteras-green text-white' 
+                      : 'bg-parchment border-canteras-gold/20 text-canteras-gold hover:bg-canteras-gold hover:text-white hover:shadow-xl'
+                    }`}
                   >
-                    Add to Selection
+                    {recentlyAdded[item.id] ? '✓ Added to Cart!' : 'Add to Selection'}
                   </button>
                 </div>
               </div>

@@ -54,6 +54,25 @@
           animation: fade-in-up 0.6s ease-out forwards;
         }
 
+        @keyframes cart-bump {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.4); }
+          100% { transform: scale(1); }
+        }
+        .animate-cart-bump {
+          animation: cart-bump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        .shimmer-button {
+          background: linear-gradient(90deg, var(--canteras-red) 0%, #d42a2a 25%, var(--canteras-red) 50%);
+          background-size: 200% 100%;
+          animation: shimmer 3s infinite linear;
+        }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--parchment); }

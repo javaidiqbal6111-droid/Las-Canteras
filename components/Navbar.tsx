@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface NavbarProps {
   searchQuery: string;
@@ -10,6 +10,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ searchQuery, setSearchQuery, cartCount, onOpenCart }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [shouldAnimateCart, setShouldAnimateCart] = useState(false);
+  const prevCount = useRef(cartCount);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +20,16 @@ const Navbar: React.FC<NavbarProps> = ({ searchQuery, setSearchQuery, cartCount,
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (cartCount > prevCount.current) {
+      setShouldAnimateCart(true);
+      const timer = setTimeout(() => setShouldAnimateCart(false), 300);
+      prevCount.current = cartCount;
+      return () => clearTimeout(timer);
+    }
+    prevCount.current = cartCount;
+  }, [cartCount]);
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
@@ -40,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ searchQuery, setSearchQuery, cartCount,
           </span>
         </a>
 
-        {/* Search Bar - Hidden on Mobile */}
+        {/* Search Bar */}
         <div className="hidden md:flex flex-1 max-w-sm mx-12 relative group">
           <input
             type="text"
@@ -65,21 +77,21 @@ const Navbar: React.FC<NavbarProps> = ({ searchQuery, setSearchQuery, cartCount,
           <div className={`hidden lg:flex gap-8 font-bold text-[11px] uppercase tracking-[0.2em] ${
             isScrolled ? 'text-gray-600' : 'text-white/80'
           }`}>
-            <a href="#menu" className="hover:text-canteras-red transition-colors">Menu</a>
-            <a href="#reservations" className="hover:text-canteras-gold transition-colors">Book a Table</a>
+            <a href="#menu" className="hover:text-canteras-red transition-all hover:tracking-[0.3em]">Menu</a>
+            <a href="#reservations" className="hover:text-canteras-gold transition-all hover:tracking-[0.3em]">Book a Table</a>
           </div>
           
           <button 
             onClick={onOpenCart}
             className={`relative p-2 transition-all hover:scale-110 active:scale-90 ${
               isScrolled ? 'text-gray-800' : 'text-white'
-            }`}
+            } ${shouldAnimateCart ? 'animate-cart-bump' : ''}`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-canteras-red text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full shadow-lg ring-2 ring-white">
+              <span className={`absolute -top-1 -right-1 bg-canteras-red text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full shadow-lg ring-2 ring-white transition-all ${shouldAnimateCart ? 'scale-125' : 'scale-100'}`}>
                 {cartCount}
               </span>
             )}

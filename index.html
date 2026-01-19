@@ -5,24 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Las Canteras Mexican Grill | Authentic Flavors</title>
+    
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                red: '#8B0000',
+                gold: '#C5A059',
+                'gold-light': '#E8D3A3',
+                obsidian: '#1A1A1A',
+                parchment: '#FCF9F2',
+              }
+            },
+            fontFamily: {
+              playfair: ['"Playfair Display"', 'serif'],
+              lato: ['Lato', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --canteras-red: #8B0000;
-            --canteras-gold: #C5A059;
-            --canteras-gold-light: #E8D3A3;
-            --parchment: #FCF9F2;
-            --deep-obsidian: #1A1A1A;
-        }
-        
         body {
             font-family: 'Lato', sans-serif;
-            background-color: var(--parchment);
+            background-color: #FCF9F2;
             scroll-behavior: smooth;
-            color: var(--deep-obsidian);
+            color: #1A1A1A;
             overflow-x: hidden;
         }
         
@@ -49,7 +68,7 @@
         }
 
         .text-gold-gradient {
-            background: linear-gradient(to right, var(--canteras-gold), var(--canteras-gold-light));
+            background: linear-gradient(to right, #C5A059, #E8D3A3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -81,9 +100,9 @@
 
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--parchment); }
-        ::-webkit-scrollbar-thumb { background: var(--canteras-gold); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--canteras-red); }
+        ::-webkit-scrollbar-track { background: #FCF9F2; }
+        ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8B0000; }
 
         .btn-premium {
             position: relative;
@@ -118,5 +137,7 @@
 </head>
 <body class="grain-overlay">
     <div id="root"></div>
+    <!-- Explicit entry point to ensure React mounts in production environments -->
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>

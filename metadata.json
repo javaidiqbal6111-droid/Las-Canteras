@@ -1,0 +1,7 @@
+{
+  "name": "Las Canteras Mexican Grill - Premium Experience",
+  "description": "A high-end, responsive redesign for Las Canteras Mexican Grill featuring an AI-powered menu assistant, interactive dish discovery, and seamless reservation management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
